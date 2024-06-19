@@ -8,19 +8,26 @@ export class UsersService {
 
   public async create(data: CreateUserInput) {
     const email = data.email;
-    const user = this.prisma.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { email },
     });
-    console.log(user);
-    if (user) {
-      throw new Error('Email ja cadastrado');
-    }
+    if (user) throw new Error('Email ja cadastrado');
     await this.prisma.user.create({
       data,
     });
   }
-  //   public async findAll() {}
-  //   public async findOne(id) {}
+  public async findOne(id) {
+    return await this.prisma.user.findUnique({
+      where: { id },
+    });
+  }
+  public async remove(id) {
+    const deletedUser = await this.prisma.user.delete({
+      where: {
+        id,
+      },
+    });
+    return deletedUser;
+  }
   //   public async update(id, updateUserDto) {}
-  //   public async remove(id) {}
 }
