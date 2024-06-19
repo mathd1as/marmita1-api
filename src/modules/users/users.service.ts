@@ -16,18 +16,24 @@ export class UsersService {
       data,
     });
   }
+
   public async findOne(id) {
     return await this.prisma.user.findUnique({
       where: { id },
+      select: {
+        email: true,
+        name: true,
+        id: true,
+      },
     });
   }
+
   public async remove(id) {
     const deletedUser = await this.prisma.user.delete({
-      where: {
-        id,
-      },
+      where: { id },
     });
     return deletedUser;
   }
+
   //   public async update(id, updateUserDto) {}
 }
