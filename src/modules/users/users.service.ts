@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { CreateUserInput } from './dtos/create-user-input.dto';
 
@@ -11,7 +11,9 @@ export class UsersService {
     const user = await this.prisma.user.findUnique({
       where: { email },
     });
-    if (user) throw new Error('Email ja cadastrado');
+    if (user) {
+      throw new UnauthorizedException({ log: 'email_already_registered' });
+    }
     await this.prisma.user.create({
       data,
     });
