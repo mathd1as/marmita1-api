@@ -16,7 +16,7 @@ import { UsersModule } from './modules/users/users.module';
     PassportModule,
     JwtModule.register({
       privateKey: 'secret',
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '6000s' },
     }),
   ],
   controllers: [AppController, AuthController],
