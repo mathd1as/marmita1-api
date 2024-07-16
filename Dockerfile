@@ -8,6 +8,7 @@ COPY package*.json .
 RUN npm ci
  
 COPY --chown=node:node . .
+COPY ./prisma prisma
 RUN npm run build && npm prune --omit=dev
  
  
@@ -21,6 +22,9 @@ WORKDIR /home/node
 COPY --from=builder --chown=node:node /home/node/package*.json .
 COPY --from=builder --chown=node:node /home/node/node_modules ./node_modules
 COPY --from=builder --chown=node:node /home/node/dist ./dist
+
+COPY --chown=node:node --from=builder /app/prisma /app/prisma
+COPY --chown=node:node --from=builder /app/src /app/src
  
 ARG PORT
 EXPOSE ${PORT:-3000}
