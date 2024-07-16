@@ -23,8 +23,8 @@ COPY --from=builder --chown=node:node /home/node/package*.json .
 COPY --from=builder --chown=node:node /home/node/node_modules ./node_modules
 COPY --from=builder --chown=node:node /home/node/dist ./dist
 
-COPY --chown=node:node --from=builder /app/prisma /app/prisma
-COPY --chown=node:node --from=builder /app/src /app/src
+COPY --chown=node:node --from=builder /prisma /prisma
+COPY --chown=node:node --from=builder /src /src
  
 ARG PORT
 EXPOSE ${PORT:-3000}
