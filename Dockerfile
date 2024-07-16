@@ -26,6 +26,6 @@ COPY --from=builder --chown=node:node /home/node/dist ./dist
 ARG PORT
 EXPOSE ${PORT:-3000}
 
-RUN npx prisma generate
+# RUN npx prisma generate
 
 CMD ["node", "dist/main.js"]
