@@ -23,7 +23,7 @@ COPY --from=builder --chown=node:node /home/node/package*.json .
 COPY --from=builder --chown=node:node /home/node/node_modules ./node_modules
 COPY --from=builder --chown=node:node /home/node/dist ./dist
 
-RUN npx prisma generate
+# RUN npx prisma generate
  
 ARG PORT
 EXPOSE ${PORT:-3000}
